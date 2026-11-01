@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepFake Sentinel | AI Forensic Suite</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <circle cx="12" cy="11" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">DeepFake Sentinel</div>
+          <div class="brand-subtitle">AI Forensic Suite v2.0</div>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-tab="image-tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Image Forensics
+        </button>
+        <button class="nav-btn" data-tab="video-tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Video Sentinel
+        </button>
+        <button class="nav-btn" data-tab="webcam-tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          Live Webcam HUD
+        </button>
+        <button class="nav-btn" data-tab="models-tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          Model Studio & Training
+        </button>
+        <button class="nav-btn" data-tab="audit-tab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Audit & Verification
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-dot"></span>
+          <span>Engine: Ready (Multi-Modal)</span>
+        </div>
+        <div class="tech-badge">ResNet &bull; Grad-CAM &bull; ELA &bull; FFT</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="page-title">Image Forensic Analysis</h1>
+          <p id="page-desc">Upload facial photos to detect synthetic generation, deepfake manipulation, and artifact tampering.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="model-badge">
+            <span class="label">ACTIVE MODEL:</span>
+            <select id="topbar-model-select">
+              <option value="resnet34">ResNet-34 (Standard)</option>
+              <option value="resnet50">ResNet-50 (Deep Feature)</option>
+              <option value="resnext50_32x4d">ResNeXt-50 32x4d</option>
+              <option value="mobilenet_v2">MobileNet-V2 (Fast)</option>
+              <option value="densenet121">DenseNet-121</option>
+              <option value="efficientnet_b0">EfficientNet-B0</option>
+            </select>
+          </div>
+          <button id="btn-export-report" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Report
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: IMAGE FORENSICS -->
+      <section id="image-tab" class="tab-pane active">
+        <div class="grid-2col">
+          <!-- Left Column: Input and Upload -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Target Media Upload</h3>
+              <span class="badge">JPG / PNG / WEBP</span>
+            </div>
+            <div class="dropzone" id="image-dropzone">
+              <input type="file" id="image-file-input" accept="image/*" style="display:none">
+              <div class="dropzone-content">
+                <div class="upload-icon">&#8682;</div>
+                <div class="dropzone-text">Drag & drop facial image here, or <span>Browse</span></div>
+                <div class="dropzone-sub">Supports single faces, group portraits, and web media</div>
+              </div>
+            </div>
+
+            <!-- Sample preset selector for instant demonstration -->
+            <div class="sample-presets">
+              <span class="preset-label">Quick Test Presets:</span>
+              <button class="btn-preset" data-sample="authentic">Authentic Photo</button>
+              <button class="btn-preset" data-sample="deepfake_gan">GAN Face (StyleGAN)</button>
+              <button class="btn-preset" data-sample="swap">Face-Swap Spliced</button>
+            </div>
+
+            <div class="action-row">
+              <button id="btn-run-image-audit" class="btn btn-primary" disabled>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Run Forensic Audit
+              </button>
+              <button id="btn-clear-image" class="btn btn-ghost">Clear</button>
+            </div>
+
+            <!-- Forensic View Modes Switcher -->
+            <div class="view-mode-selector">
+              <span class="selector-title">Forensic Modality:</span>
+              <div class="btn-group">
+                <button class="mode-btn active" data-mode="original">Original + BBox</button>
+                <button class="mode-btn" data-mode="gradcam">Grad-CAM Heatmap</button>
+                <button class="mode-btn" data-mode="ela">Error Level Analysis (ELA)</button>
+                <button class="mode-btn" data-mode="fft">2D FFT Spectrum</button>
+              </div>
+            </div>
+
+            <!-- Interactive Canvas Display -->
+            <div class="canvas-wrapper">
+              <canvas id="image-viewport"></canvas>
+              <div id="image-empty-placeholder" class="empty-state">
+                <p>Upload or select a sample image above to preview</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Results & Metrics -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Diagnostic Verdict</h3>
+              <span id="verdict-badge" class="verdict-pill neutral">AWAITING ANALYSIS</span>
+            </div>
+
+            <!-- Score Gauges -->
+            <div class="gauge-card">
+              <div class="gauge-row">
+                <div class="gauge-item">
+                  <div class="gauge-label">Authenticity Score</div>
+                  <div class="gauge-value" id="val-auth-score">--%</div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="bar-auth-score" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="gauge-item">
+                  <div class="gauge-label">Deepfake Probability</div>
+                  <div class="gauge-value" id="val-fake-prob">--%</div>
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fake" id="bar-fake-prob" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Multi-Modal Signals Breakdown -->
+            <div class="signals-card">
+              <h4>Multi-Signal Forensics Breakdown</h4>
+              <div class="signal-row">
+                <span class="signal-name">Convolutional Vision Model:</span>
+                <span class="signal-status" id="sig-cnn">Awaiting Run</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-name">ELA Compression Error:</span>
+                <span class="signal-status" id="sig-ela">Awaiting Run</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-name">FFT Spectral Anomaly:</span>
+                <span class="signal-status" id="sig-fft">Awaiting Run</span>
+              </div>
+              <div class="signal-row">
+                <span class="signal-name">Facial Edge Continuity:</span>
+                <span class="signal-status" id="sig-edge">Awaiting Run</span>
+              </div>
+            </div>
+
+            <!-- Key Findings & Evidence Log -->
+            <div class="findings-card">
+              <h4>Audit Observations</h4>
+              <ul id="findings-list" class="findings-list">
+                <li>Load an image to generate detailed forensic evidence.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: VIDEO SENTINEL -->
+      <section id="video-tab" class="tab-pane">
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Video Stream Upload</h3>
+              <span class="badge">MP4 / MOV / AVI</span>
+            </div>
+            <div class="dropzone" id="video-dropzone">
+              <input type="file" id="video-file-input" accept="video/*" style="display:none">
+              <div class="dropzone-content">
+                <div class="upload-icon">&#127916;</div>
+                <div class="dropzone-text">Drag & drop video clip here, or <span>Browse</span></div>
+                <div class="dropzone-sub">Automatic facial extraction & temporal consistency inspection</div>
+              </div>
+            </div>
+
+            <div class="video-controls-row">
+              <div class="slider-control">
+                <label>Frame Sampling Skip: <span id="val-frame-skip">2</span> (Lower = More Thorough)</label>
+                <input type="range" id="input-frame-skip" min="1" max="10" value="2">
+              </div>
+              <button id="btn-run-video-audit" class="btn btn-primary" disabled>
+                Analyze Video Frames
+              </button>
+            </div>
+
+            <div class="video-player-container">
+              <video id="video-player" controls style="width:100%; border-radius:8px; display:none;"></video>
+              <div id="video-empty-placeholder" class="empty-state">
+                <p>No video loaded. Select a video file to begin temporal frame analysis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Temporal Consistency Timeline</h3>
+              <span id="video-verdict-badge" class="verdict-pill neutral">NO VIDEO ANALYZED</span>
+            </div>
+
+            <!-- Interactive Timeline Scrubbing Bar -->
+            <div class="timeline-container">
+              <div class="timeline-header">
+                <span>Timeline Anomaly Map (0:00 - End)</span>
+                <span id="timeline-stats">0 Flagged Frames</span>
+              </div>
+              <div class="timeline-track" id="timeline-track">
+                <!-- Anomaly segments dynamically rendered here -->
+              </div>
+            </div>
+
+            <!-- Flagged Intervals Table -->
+            <div class="intervals-card">
+              <h4>Detected Tampered Segments</h4>
+              <div class="table-wrapper">
+                <table class="data-table" id="tampered-intervals-table">
+                  <thead>
+                    <tr>
+                      <th>Time Interval</th>
+                      <th>Peak Fake %</th>
+                      <th>Flagged Frames</th>
+                      <th>Risk Classification</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="4" style="text-align:center; color: var(--text-secondary);">No intervals identified yet.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Extracted Face Gallery Preview -->
+            <div class="gallery-card">
+              <h4>Extracted Face Gallery</h4>
+              <div class="face-gallery-grid" id="face-gallery-grid">
+                <div class="empty-gallery-msg">Face crops from sampled frames will appear here.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: WEBCAM HUD -->
+      <section id="webcam-tab" class="tab-pane">
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Real-Time Live Video Sentinel</h3>
+              <span class="badge live-badge">LIVE STREAM</span>
+            </div>
+
+            <div class="webcam-container">
+              <video id="webcam-video" autoplay playsinline muted style="display:none;"></video>
+              <canvas id="webcam-canvas"></canvas>
+              <div id="webcam-placeholder" class="empty-state">
+                <p>Click "Start Camera" to initialize real-time deepfake surveillance.</p>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button id="btn-start-webcam" class="btn btn-primary">Start Camera</button>
+              <button id="btn-stop-webcam" class="btn btn-secondary" disabled>Stop Camera</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Live Telemetry HUD</h3>
+              <span id="webcam-status-pill" class="verdict-pill neutral">DISCONNECTED</span>
+            </div>
+
+            <div class="metric-grid">
+              <div class="metric-box">
+                <div class="label">Instant Fake %</div>
+                <div class="value" id="hud-fake-val">0.0%</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">Faces in Frame</div>
+                <div class="value" id="hud-faces-val">0</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">FPS Processing</div>
+                <div class="value" id="hud-fps-val">0</div>
+              </div>
+              <div class="metric-box">
+                <div class="label">Liveness Score</div>
+                <div class="value" id="hud-liveness-val">--%</div>
+              </div>
+            </div>
+
+            <div class="findings-card">
+              <h4>Surveillance Log</h4>
+              <div class="live-log-box" id="webcam-log">
+                <div>[System] Sentinel camera module ready.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: MODEL STUDIO & TRAINING -->
+      <section id="models-tab" class="tab-pane">
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Model Training Studio</h3>
+              <span class="badge">PyTorch Neural Engine</span>
+            </div>
+
+            <div class="form-group">
+              <label>Dataset Folder (ImageFolder Format with Real/ and Fake/ folders):</label>
+              <div class="input-with-button">
+                <input type="text" id="train-dataset-path" placeholder="e.g. C:\datasets\deepfake_dataset" class="text-input">
+              </div>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label>Architecture:</label>
+                <select id="train-arch-select" class="text-input">
+                  <option value="resnet18">ResNet-18</option>
+                  <option value="resnet34" selected>ResNet-34</option>
+                  <option value="resnet50">ResNet-50</option>
+                  <option value="resnext50_32x4d">ResNeXt-50 32x4d</option>
+                  <option value="mobilenet_v2">MobileNet-V2</option>
+                  <option value="densenet121">DenseNet-121</option>
+                  <option value="efficientnet_b0">EfficientNet-B0</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Epochs:</label>
+                <input type="number" id="train-epochs" value="5" min="1" max="100" class="text-input">
+              </div>
+              <div class="form-group">
+                <label>Batch Size:</label>
+                <input type="number" id="train-batch" value="32" min="2" max="128" class="text-input">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Learning Rate:</label>
+                <input type="text" id="train-lr" value="0.0001" class="text-input">
+              </div>
+              <div class="form-group">
+                <label>Optimizer:</label>
+                <select id="train-opt" class="text-input">
+                  <option value="adamw" selected>AdamW + Cosine LR</option>
+                  <option value="adam">Standard Adam</option>
+                  <option value="sgd">SGD with Momentum</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button id="btn-start-training" class="btn btn-primary">Start Model Training</button>
+              <button id="btn-stop-training" class="btn btn-secondary" disabled>Abort Training</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Training Telemetry & Convergence</h3>
+              <span id="train-status-pill" class="verdict-pill neutral">STANDBY</span>
+            </div>
+
+            <div class="training-chart-container">
+              <canvas id="training-chart" height="220"></canvas>
+            </div>
+
+            <div class="training-log-panel">
+              <h4>Execution Console</h4>
+              <div class="console-box" id="train-console">
+                <div class="log-line">[System] Training manager initialized. Select dataset and start training.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: AUDIT & VERIFICATION -->
+      <section id="audit-tab" class="tab-pane">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Forensic Certificate & Audit Trail</h3>
+            <button id="btn-download-audit-json" class="btn btn-secondary">Download JSON Audit</button>
+          </div>
+
+          <div class="audit-trail-container">
+            <div class="audit-meta-grid">
+              <div class="meta-item">
+                <span class="m-label">ENGINE VERSION:</span>
+                <span class="m-val">DeepFake Sentinel v2.0 Enterprise</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-label">STANDARD COMPLIANCE:</span>
+                <span class="m-val">DARPA SemaFor & NIST Forensic Standards</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-label">ACTIVE MODALITIES:</span>
+                <span class="m-val">CNN Vision, Grad-CAM, ELA, 2D FFT Spectrum</span>
+              </div>
+              <div class="meta-item">
+                <span class="m-label">INTEGRITY ALGORITHM:</span>
+                <span class="m-val">FIPS 180-4 SHA-256 Digest</span>
+              </div>
+            </div>
+
+            <div class="audit-log-terminal" id="audit-log-terminal">
+              <div class="term-line timestamp">[2026-10-31] Forensic engine loaded with 7 supported CNN backbones.</div>
+              <div class="term-line">[Ready] Awaiting media ingest for cryptographic hash generation.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# DeepFake Sentinel - Project Dependencies
+
+# Core Image & Array Processing
+pillow>=9.5.0
+numpy>=1.23.0
+
+# Computer Vision & Face Detection
+opencv-python>=4.7.0.72
+mediapipe>=0.10.0
+
+# Deep Learning (PyTorch)
+# Note: Install the appropriate PyTorch build for your CUDA version from https://pytorch.org
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Progress Telemetry & Utilities
+tqdm>=4.65.0
