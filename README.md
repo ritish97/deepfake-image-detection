@@ -9,6 +9,8 @@
 
 The system combines **Convolutional Neural Networks (CNNs)** with classical **Digital Image Forensics (ELA & 2D FFT)** to provide explainable, verifiable authenticity verdicts on images, video streams, and real-time camera feeds.
 
+Live link :  https://ritish97.github.io/deepfake-image-detection/
+
 ---
 
 ## 🌟 Key Features
