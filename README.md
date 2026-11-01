@@ -52,29 +52,11 @@ Run the dashboard directly in your browser:
 ```bash
 python run_web.py
 ```
-*Or double-click `run_web.bat` on Windows.*
-
 ### 2. Launch Desktop GUI Suite
 Launch the modern dark-mode desktop application:
 ```bash
 python run_app.py --gui
 ```
-*Or double-click `run_desktop.bat` on Windows.*
-
-### 3. Command-Line (CLI) Analysis
-Run headless batch analysis on individual files:
-
-**Inspect a Single Image:**
-```bash
-python run_app.py --inspect path/to/face.jpg --model models/deepfake_resnet34.pth
-```
-
-**Audit a Video Stream:**
-```bash
-python run_app.py --video path/to/clip.mp4 --skip 3
-```
-
----
 
 ## 📁 Project Architecture
 
