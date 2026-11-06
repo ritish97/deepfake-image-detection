@@ -45,19 +45,6 @@ Live link :  https://ritish97.github.io/deepfake-image-detection/
 
 ---
 
-## 🚀 Quickstart Guide
-
-### 1. Launch Interactive Web Dashboard
-Run the dashboard directly in your browser:
-```bash
-python run_web.py
-```
-### 2. Launch Desktop GUI Suite
-Launch the modern dark-mode desktop application:
-```bash
-python run_app.py --gui
-```
-
 ## 📁 Project Architecture
 
 ```
